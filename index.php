@@ -123,7 +123,6 @@ if ($addr[0] == ""){
 }
 else{
   $view = "blank";
-  echo "run";
 
   $sql = "SELECT destination FROM url WHERE source = '$addr[0]'";
   $result = $conn->query($sql);
@@ -149,6 +148,7 @@ else{
 //*******View*******\\
 
 ?>
+<!DOCTYPE html>
 <head>
   <title>Simple URL Shortener</title>
   <meta charset="utf-8">
@@ -160,14 +160,14 @@ else{
 </head>
 <body>
 <div class="container">
-  <div class="page-header"><h1 style="font-size:3.5em;"><a href="/">Simple URL Shortener</a><h1></div>
+  <div class="page-header"><h1 style="font-size:3.5em;"><a href="/">Simple URL Shortener</a></h1></div>
   <?php if ($view == "form"){ ?>
 
     <form role="form" action="/" method="post">
 
       <div class="form-group <?php if ($error == 'no-destination'){ echo 'has-error';}?>">
           <label class="control-label" for="destination">Destination: <?php if ($error == 'no-destination'){ echo '(Must be entered)';}?></label>
-          <input class="form-control" type="text" id="destination" name="destination" autofocus value="<?php echo $destination ?>"></input>
+          <input class="form-control" type="text" id="destination" name="destination" autofocus value="<?php echo $destination ?>">
       </div>
 
       <div class="form-group <?php if ($error == 'source-taken'){ echo 'has-error';}?>" >
@@ -183,7 +183,14 @@ else{
       <input style="padding-left:50px;padding-right:50px;" type="submit" value="Go!" class="btn btn-success btn-lg">
     </form>
 
-  <?php } elseif ($view == "success") { ?>
+  <?php } elseif ($view == "success") {
+    if (0 === strpos($destination, 'http')) {
+      echo "";
+    }
+    else{
+      $destination = "http://" . $destination;
+    }
+    ?>
 
     <h4>The URL <a href=<?php echo "'" . $site_url . "/" . $source . "'>" . $site_url . "/" . $source . "</a> redirects to <a href='" . $destination . "'>" . $destination . "</a><br>"; ?></h4>
 
@@ -225,7 +232,5 @@ else{
   }
     </style>
 </div>
-
-
 </body>
 <?php
