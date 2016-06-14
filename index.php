@@ -50,6 +50,7 @@ if ($db_installed == 0){  //install db
   $sql = "CREATE TABLE url (id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY, source VARCHAR(60), destination VARCHAR(1024))";
 
     if (mysqli_query($conn, $sql)) {
+      writeToDB("index.php", "/");
     } else {
       echo "Error creating table: " . mysqli_error($conn);
     }
@@ -156,14 +157,14 @@ else{
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo $site_url; ?>/favicon.ico">
 </head>
 <body>
 <div class="container">
   <div class="page-header"><h1 style="font-size:3.5em;"><a href="/">Simple URL Shortener</a></h1></div>
   <?php if ($view == "form"){ ?>
 
-    <form role="form" action="/" method="post">
+    <form role="form" action="<?php echo $site_url; ?>" method="post">
 
       <div class="form-group <?php if ($error == 'no-destination'){ echo 'has-error';}?>">
           <label class="control-label" for="destination">Destination: <?php if ($error == 'no-destination'){ echo '(Must be entered)';}?></label>
