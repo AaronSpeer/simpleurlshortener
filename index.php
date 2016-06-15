@@ -125,7 +125,9 @@ if ($addr[0] == ""){
 else{
   $view = "blank";
 
-  $sql = "SELECT destination FROM url WHERE source = '$addr[0]'";
+  $url0 = sanitise_data($addr[0]);
+
+  $sql = "SELECT destination FROM url WHERE source = '$url0'";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
