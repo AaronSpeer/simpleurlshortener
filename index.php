@@ -50,7 +50,7 @@ if ($db_installed == 0){  //install db
   $sql = "CREATE TABLE url (id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY, source VARCHAR(60), destination VARCHAR(1024))";
 
     if (mysqli_query($conn, $sql)) {
-      writeToDB("index.php", "/");
+      writeToDB("favicon.ico", "https://git.speerfamily.ie/uploads/project/avatar/1/compress.png");
     } else {
       echo "Error creating table: " . mysqli_error($conn);
     }
